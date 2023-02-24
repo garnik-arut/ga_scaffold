@@ -26,8 +26,7 @@
 .. image:: https://img.shields.io/badge/-PyScaffold-005CA0?logo=pyscaffold
     :alt: Project generated with PyScaffold
     :target: https://pyscaffold.org/
-
-|
+![CI workflow](https://github.com/garnik-arut/ga_scaffold/actions/workflows/ci.yml/badge.svg)
 
 ===========
 ga_scaffold
