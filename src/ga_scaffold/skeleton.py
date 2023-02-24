@@ -4,10 +4,10 @@ console script. To run this script uncomment the following lines in the
 ``[options.entry_points]`` section in ``setup.cfg``::
 
     console_scripts =
-         fibonacci = ga_scaffold.skeleton:run
+         isqrt = ga_scaffold.skeleton:run
 
 Then run ``pip install .`` (or ``pip install -e .`` for editable mode)
-which will install the command ``fibonacci`` inside your current environment.
+which will install the command ``isqrt`` inside your current environment.
 
 Besides console scripts, the header (i.e. until ``_logger``...) of this file can
 also be used as template for Python modules.
@@ -27,7 +27,7 @@ from ctypes import c_float, c_int32, cast, byref, POINTER
 
 
 from ga_scaffold import __version__
-
+#__version__="0.1"
 
 __author__ = "Garnik-Arut"
 __copyright__ = "Garnik-Arut"
@@ -39,24 +39,8 @@ _logger = logging.getLogger(__name__)
 # ---- Python API ----
 # The functions defined in this section can be imported by users in their
 # Python scripts/interactive interpreter, e.g. via
-# `from ga_scaffold.skeleton import fib`,
+# `from ga_scaffold.skeleton import isqrt`,
 # when using this Python module as a library.
-
-
-def fib(n):
-    """Fibonacci example function
-
-    Args:
-      n (int): integer
-
-    Returns:
-      int: n-th Fibonacci number
-    """
-    assert n > 0
-    a, b = 1, 1
-    for _i in range(n - 1):
-        a, b = b, a + b
-    return a
 
 
 def isqrt(n):
@@ -70,6 +54,7 @@ def isqrt(n):
     Returns:
       float: n ** (-2)
     """
+    assert n > 0
     x2 = n * 0.5 # half the number
     y = c_float(n) # cast to float (just in case its integer)
 
@@ -152,7 +137,7 @@ def main(args):
     args = parse_args(args)
     setup_logging(args.loglevel)
     _logger.debug("Starting crazy calculations...")
-    print(f"The fast inverse square root of {args.n} is {fib(args.n)}")
+    print(f"The fast inverse square root of {args.n} is {isqrt(args.n)}")
     _logger.info("Script ends here")
 
 
