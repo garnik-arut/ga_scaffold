@@ -107,7 +107,9 @@ def parse_args(args):
         const=logging.DEBUG,
     )
     # Seed for NN applications
-    # parser.add_argument(dest="seed", help="seed to stay sane", type=int, metavar="SEED")
+    # parser.add_argument(dest="seed",
+    #                       help="seed to stay sane",
+    #                       type=int, metavar="SEED")
     return parser.parse_args(args)
 
 
@@ -126,7 +128,8 @@ def setup_logging(loglevel):
 
 
 def main(args):
-    """Wrapper allowing :func:`isqrt` to be called with string arguments in a CLI fashion
+    """
+    Wrapper allowing :func:`isqrt` to be called with string arguments in a CLI fashion
 
     Instead of returning the value from :func:`isqrt`, it prints the result to the
     ``stdout`` in a nicely formatted message.
