@@ -1,15 +1,15 @@
 .. These are examples of badges you might want to add to your README:
    please update the URLs accordingly
 
-    .. image:: https://api.cirrus-ci.com/github/<USER>/ga_scaffold.svg?branch=main
+    .. image:: https://api.cirrus-ci.com/github/garnik-arut/ga_scaffold.svg?branch=main
         :alt: Built Status
-        :target: https://cirrus-ci.com/github/<USER>/ga_scaffold
+        :target: https://cirrus-ci.com/github/garnik-arut/ga_scaffold
     .. image:: https://readthedocs.org/projects/ga_scaffold/badge/?version=latest
         :alt: ReadTheDocs
         :target: https://ga_scaffold.readthedocs.io/en/stable/
-    .. image:: https://img.shields.io/coveralls/github/<USER>/ga_scaffold/main.svg
+    .. image:: https://img.shields.io/coveralls/github/garnik-arut/ga_scaffold/main.svg
         :alt: Coveralls
-        :target: https://coveralls.io/r/<USER>/ga_scaffold
+        :target: https://coveralls.io/r/garnik-arut/ga_scaffold
     .. image:: https://img.shields.io/pypi/v/ga_scaffold.svg
         :alt: PyPI-Server
         :target: https://pypi.org/project/ga_scaffold/
@@ -37,7 +37,6 @@ ga_scaffold
     My own scaffold project based on PyScaffold 4.4
 
 
-A longer description of your project goes here...
 
 
 .. _pyscaffold-notes:

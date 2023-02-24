@@ -23,8 +23,11 @@ References:
 import argparse
 import logging
 import sys
+from ctypes import c_float, c_int32, cast, byref, POINTER
+
 
 from ga_scaffold import __version__
+
 
 __author__ = "Garnik-Arut"
 __copyright__ = "Garnik-Arut"
@@ -56,6 +59,27 @@ def fib(n):
     return a
 
 
+def isqrt(n):
+    """Fast inverse square root
+    based on John Carmack's algorythm in C
+    https://en.wikipedia.org/wiki/Fast_inverse_square_root
+
+    Args:
+      n (float): float
+
+    Returns:
+      float: n ** (-2)
+    """
+    x2 = n * 0.5 # half the number
+    y = c_float(n) # cast to float (just in case its integer)
+
+
+    i = cast(byref(y), POINTER(c_int32)).contents.value # Cast to int
+    i = c_int32(0x5f3759df - (i >> 1)) # Memory hack
+    y = cast(byref(i), POINTER(c_float)).contents.value # Cast back
+
+    y = y * (1.5 - (x2 * y * y)) # do the first Newton iteration
+    return y
 # ---- CLI ----
 # The functions defined in this section are wrappers around the main Python
 # API allowing them to be called directly from the terminal as a CLI
@@ -72,13 +96,13 @@ def parse_args(args):
     Returns:
       :obj:`argparse.Namespace`: command line parameters namespace
     """
-    parser = argparse.ArgumentParser(description="Just a Fibonacci demonstration")
+    parser = argparse.ArgumentParser(description="Just a Fast inverse square root demo")
     parser.add_argument(
         "--version",
         action="version",
         version=f"ga_scaffold {__version__}",
     )
-    parser.add_argument(dest="n", help="n-th Fibonacci number", type=int, metavar="INT")
+    parser.add_argument(dest="n", help="number to fast inverse square root ", type=int, metavar="NUMBER")
     parser.add_argument(
         "-v",
         "--verbose",
@@ -87,6 +111,7 @@ def parse_args(args):
         action="store_const",
         const=logging.INFO,
     )
+    # good practice
     parser.add_argument(
         "-vv",
         "--very-verbose",
@@ -95,6 +120,8 @@ def parse_args(args):
         action="store_const",
         const=logging.DEBUG,
     )
+    # Seed for NN applications
+    # parser.add_argument(dest="seed", help="seed to stay sane", type=int, metavar="SEED")
     return parser.parse_args(args)
 
 
@@ -104,16 +131,18 @@ def setup_logging(loglevel):
     Args:
       loglevel (int): minimum loglevel for emitting messages
     """
+    # Classical
     logformat = "[%(asctime)s] %(levelname)s:%(name)s:%(message)s"
+    # Later add IDEA logs format
     logging.basicConfig(
         level=loglevel, stream=sys.stdout, format=logformat, datefmt="%Y-%m-%d %H:%M:%S"
     )
 
 
 def main(args):
-    """Wrapper allowing :func:`fib` to be called with string arguments in a CLI fashion
+    """Wrapper allowing :func:`isqrt` to be called with string arguments in a CLI fashion
 
-    Instead of returning the value from :func:`fib`, it prints the result to the
+    Instead of returning the value from :func:`isqrt`, it prints the result to the
     ``stdout`` in a nicely formatted message.
 
     Args:
@@ -123,7 +152,7 @@ def main(args):
     args = parse_args(args)
     setup_logging(args.loglevel)
     _logger.debug("Starting crazy calculations...")
-    print(f"The {args.n}-th Fibonacci number is {fib(args.n)}")
+    print(f"The fast inverse square root of {args.n} is {fib(args.n)}")
     _logger.info("Script ends here")
 
 
@@ -144,6 +173,6 @@ if __name__ == "__main__":
     # After installing your project with pip, users can also run your Python
     # modules as scripts via the ``-m`` flag, as defined in PEP 338::
     #
-    #     python -m ga_scaffold.skeleton 42
+    #     python -m ga_scaffold.skeleton 16
     #
     run()
