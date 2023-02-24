@@ -13,7 +13,7 @@ def rounded_compare(a, b, decimals=0):
 
 def test_isqrt():
     """API Tests"""
-    assert rounded_compare(isqrt(1/16), 4)
+    assert rounded_compare(isqrt(1 / 16), 4)
     assert rounded_compare(isqrt(0.25), 2)
     # Lets get an error
     with pytest.raises(AssertionError):
