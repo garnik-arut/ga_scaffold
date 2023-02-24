@@ -23,8 +23,7 @@ References:
 import argparse
 import logging
 import sys
-from ctypes import c_float, c_int32, cast, byref, POINTER
-
+from ctypes import POINTER, byref, c_float, c_int32, cast
 
 from ga_scaffold import __version__
 
@@ -54,16 +53,17 @@ def isqrt(n):
       float: n ** (-2)
     """
     assert n > 0
-    x2 = n * 0.5 # half the number
-    y = c_float(n) # cast to float (just in case its integer)
+    x2 = n * 0.5  # half the number
+    y = c_float(n)  # cast to float (just in case its integer)
 
+    i = cast(byref(y), POINTER(c_int32)).contents.value  # Cast to int
+    i = c_int32(0x5F3759DF - (i >> 1))  # Memory hack
+    y = cast(byref(i), POINTER(c_float)).contents.value  # Cast back
 
-    i = cast(byref(y), POINTER(c_int32)).contents.value # Cast to int
-    i = c_int32(0x5f3759df - (i >> 1)) # Memory hack
-    y = cast(byref(i), POINTER(c_float)).contents.value # Cast back
-
-    y = y * (1.5 - (x2 * y * y)) # do the first Newton iteration
+    y = y * (1.5 - (x2 * y * y))  # do the first Newton iteration
     return y
+
+
 # ---- CLI ----
 # The functions defined in this section are wrappers around the main Python
 # API allowing them to be called directly from the terminal as a CLI
@@ -86,7 +86,9 @@ def parse_args(args):
         action="version",
         version=f"ga_scaffold {__version__}",
     )
-    parser.add_argument(dest="n", help="number to fast inverse square root ", type=int, metavar="NUMBER")
+    parser.add_argument(
+        dest="n", help="number to fast inverse square root ", type=int, metavar="NUMBER"
+    )
     parser.add_argument(
         "-v",
         "--verbose",
