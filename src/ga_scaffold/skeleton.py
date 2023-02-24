@@ -27,7 +27,6 @@ from ctypes import c_float, c_int32, cast, byref, POINTER
 
 
 from ga_scaffold import __version__
-#__version__="0.1"
 
 __author__ = "Garnik-Arut"
 __copyright__ = "Garnik-Arut"
