@@ -11,7 +11,7 @@ ga_scaffold
 ===========
 
 
-    My own scaffold project based on PyScaffold 4.4
+    Scaffold python project based on PyScaffold 4.4
 
 
 
