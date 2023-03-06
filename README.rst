@@ -12,7 +12,7 @@ ga_scaffold
 
 
     Scaffold python project based on PyScaffold 4.4
- 
+
 | Good starting point for new projects: base for logging, tests, linting, basic CI/CD with Github Actions etc is already there.
 | Demo contains Fast inverse square root algorithm based on interpreting 32-bit float as integer (yes, it works in python too, yes, its the same algorithm from Quake III Arena). https://en.wikipedia.org/wiki/Fast_inverse_square_root
 
